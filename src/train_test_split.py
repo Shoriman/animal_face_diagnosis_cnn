@@ -23,7 +23,7 @@ def train_val_test(ds, out_dir, ratio={'train': 0.6, 'test': 0.5}):
 
 def save_dataset(names, dir_lst, data_lst):
     for dir_path, data in zip(dir_lst, data_lst):
-        for _, v in names:
+        for _, v in names.items():
             cls_dir = os.path.join(dir_path, v)
             os.mkdir(cls_dir)
         for fpath, label in zip(data[0], data[1]):
