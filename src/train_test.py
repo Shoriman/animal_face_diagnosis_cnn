@@ -18,7 +18,7 @@ parser.add_argument('arch_path', help='Model architecture path')
 parser.add_argument('param_path', help='Parameter path')
 parser.add_argument('--norm', '-n', type=int, default=0,
                     help='Input-normalization mode')
-parser.add_argument('--optname', '-o', default='SGD',
+parser.add_argument('--optname', '-o', default='MomentumSGD',
                     help='Optimizer [SGD, MomentumSGD, Adam]')
 parser.add_argument('--epoch', '-e', type=int, default=50, help='Epoch Number')
 parser.add_argument('--test_bsize', '-b', type=int, default=10,
@@ -30,19 +30,19 @@ parser.add_argument('--lr_attr', '-l', default='lr',
 parser.add_argument('--mean_img', default=None)
 args = parser.parse_args()
 
+if not os.path.exists(args.out_dir):
+    os.mkdir(args.out_dir)
+
 train_dt_names = ['train', 'test', 'param', 'config', 'norm', 'optimizer',
                   'epoch', 'test_bsize', 'gpu']
 train_dt_lst = [args.train_path, args.test_path, args.param_path,
-                args.config_path, args.norm, args.optname, args.epoch,
+                args.arch_path, args.norm, args.optname, args.epoch,
                 args.test_bsize, args.gpu]
 train_dt_dic = cl.OrderedDict()
 for n, c in zip(train_dt_names, train_dt_lst):
     train_dt_dic[n] = c
 with open(os.path.join(args.out_dir, 'train_detail.json'), 'w') as fp:
     json.dump(train_dt_dic, fp)
-
-if not os.path.exists(args.out_dir):
-    os.mkdir(args.out_dir)
 
 if args.mean_img is None:
     mean_img = None
