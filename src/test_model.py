@@ -19,7 +19,7 @@ parser.add_argument('out_dir', help='Output directory path')
 parser.add_argument('--norm', '-n', type=int, default=0,
                     help='Input-normalization mode')
 parser.add_argument('--mean_img', default=None)
-parser.add_argument('--gpu', '-g')
+parser.add_argument('--gpu', '-g', type=int, default=-1, help='GPU ID')
 parser.add_argument('--bsize', '-b', type=int, default=10,
                     help='Batch size for test')
 args = parser.parse_args()
