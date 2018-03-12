@@ -3,5 +3,6 @@ face_dataset/
 face_train_test/
 results/
 *.pyc
+.DS_Store
 
 
