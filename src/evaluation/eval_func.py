@@ -9,7 +9,7 @@ import six
 import numpy as np
 
 
-def aca(self, evaluator, device=None):
+def aca(evaluator, device=None):
     iterator = evaluator.get_iterator()
     target = evaluator.get_target()
 
@@ -27,12 +27,12 @@ def aca(self, evaluator, device=None):
                             for x in in_arrays)
             y = target(in_vars[0]).data
             t = in_vars[1].data
-            acc_lst.append(cuda.to_cpu(accuracy.accuracy(y, t)))
+            acc_lst.append(cuda.to_cpu(accuracy.accuracy(y, t).data))
 
     return np.mean(acc_lst)
 
 
-def mca(self, evaluator, device=None):
+def mca(evaluator, device=None):
     iterator = evaluator.get_iterator()
     target = evaluator.get_target()
 
@@ -69,5 +69,5 @@ def mca(self, evaluator, device=None):
 
     label_cnt = it.get_label_cnt()
     mca_score = xp.array([float(summary._x) / float(label_cnt[l]) for l, summary
-                          in six.iteritems(dic_summary._summaries)]).mean(dtype=y.dtype)
-    return mca_score
+                          in six.iteritems(dic_summary._summaries)]).mean()
+    return cuda.to_cpu(mca_score)
