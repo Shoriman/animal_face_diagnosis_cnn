@@ -4,5 +4,6 @@ face_train_test/
 results/
 *.pyc
 .DS_Store
+*.npz
 
 
