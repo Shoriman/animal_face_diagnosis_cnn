@@ -5,5 +5,7 @@ results/
 *.pyc
 .DS_Store
 *.npz
+model_files
+
 
 
