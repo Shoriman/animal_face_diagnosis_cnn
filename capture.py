@@ -87,7 +87,8 @@ while(True):
                 if len(eyes) < 2:
                     continue
                 roi_lst.append(cv2.resize(roi, roi_size))
-                in_lst.append(cv2.resize(roi, insize))
+                in_lst.append(cv2.cvtColor(cv2.resize(roi, insize),
+                                           cv2.COLOR_BGR2RGB))
             if len(roi_lst) >= 1:
                 in_array = np.array(in_lst).astype('f') / 255
                 in_array -= mean_img
